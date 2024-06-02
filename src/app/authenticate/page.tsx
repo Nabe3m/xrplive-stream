@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import sdk from '@crossmarkio/sdk';
-import { useRouter } from 'next/navigation'; // クライアント側で useRouter を使用
+import { useRouter } from 'next/navigation';
 
-export default function Home() {
+export default function Authenticate() {
   const [address, setAddress] = useState<string | undefined>();
   const router = useRouter();
 
@@ -16,8 +16,7 @@ export default function Home() {
         setAddress(userAddress);
         if (userAddress) {
           const returnUrl =
-            new URLSearchParams(window.location.search).get('returnUrl') ||
-            '/create-room';
+            new URLSearchParams(window.location.search).get('returnUrl') || '/';
           router.replace(returnUrl.toString());
         }
       })
@@ -32,8 +31,7 @@ export default function Home() {
       const userAddress = signIn.response.data.address;
       setAddress(userAddress);
       const returnUrl =
-        new URLSearchParams(window.location.search).get('returnUrl') ||
-        '/create-room';
+        new URLSearchParams(window.location.search).get('returnUrl') || '/';
       router.replace(returnUrl.toString());
     } catch (err) {
       console.error('Failed to authenticate:', err);
